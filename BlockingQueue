@@ -1,0 +1,68 @@
+public class BlockingQueue {
+
+  private ReentrantLock lock = new ReentrantLock();
+  private Condition full = lock.newCondition();
+  private Condition empty = lock.newCondition();
+
+  public LinkedList<Object> objects = new LinkedList<>();
+  private int capacity;
+
+  public BlockingQueue(int capacity) {
+    if (capacity < 1) {
+      throw new IllegalArgumentException("Capacity must greater then 0");
+    }
+
+    this.capacity = capacity;
+  }
+
+  public void put(Object object) {
+    try {
+      lock.lock();
+
+      while (objects.size() == capacity) {
+        System.out.println("已满: 等待");
+        full.await();
+      }
+
+      System.out.println("添加一个");
+      objects.add(object);
+      empty.signalAll();
+    } catch (Exception ex) {
+      // ...
+    } finally {
+      lock.unlock();
+    }
+  }
+
+  public Object take() {
+
+    try {
+      lock.lock();
+      while (objects.size() == 0) {
+        System.out.println("已空: 等待");
+        empty.await();
+      }
+
+      System.out.println("拿走一个");
+      Object object = objects.poll();
+      full.signalAll();
+
+      return object;
+    } catch (Exception ex) {
+      // ...
+      throw new RuntimeException("异常");
+    } finally {
+      lock.unlock();
+    }
+  }
+
+  public static void main(String[] args) throws InterruptedException {
+    int capacity = 20;
+    BlockingQueue bq = new BlockingQueue(capacity);
+    for (int i = 0; i < capacity + 2; i++) {
+      new Thread(() -> bq.put("xxx"), "put-" + i).start();
+    }
+
+    Thread.sleep(5000);
+    new Thread(() -> System.out.println("拿到" + bq.take())).start();
+  }
