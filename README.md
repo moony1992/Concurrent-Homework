@@ -102,4 +102,5 @@ volatile 能使得一个非原子操作变成原子操作吗？为什么？
 AQS的底层原理分析
 ----
 
-![image](https://github.com/moony1992/Concurrent-Homework/blob/master/image.png)
+![]
+(https://github.com/moony1992/Concurrent-Homework/blob/master/image.png)
