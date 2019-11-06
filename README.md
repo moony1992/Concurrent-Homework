@@ -98,3 +98,8 @@ volatile 能使得一个非原子操作变成原子操作吗？为什么？
 ----
 
 不能，数组是对成员变量或对象一个地址引用，volatile可保证对于对象数组的地址具有可见性，但是数组或对象内部的成员变量不具有可见性。
+
+AQS的底层原理分析
+----
+
+![image](https://github.com/moony1992/Concurrent-Homework/blob/master/image.png)
