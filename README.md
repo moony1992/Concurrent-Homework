@@ -46,7 +46,7 @@ Main x=1000 x=1000
 
 多线程获得锁的顺序不可控
 因进入m1的线程TIME_WAITTING时间比m2的明显较久，再加上m2的锁可上升到重量级锁，不可能出现，m1打印x=2000的情况
-
+```java
 public class SynchronizedDemo  {
    static Integer count=0;
    public static void incr(){
@@ -67,7 +67,7 @@ public class SynchronizedDemo  {
         System.out.println("result:"+count);
     }
 }
-
+```
 
 2 数据随机小于1000
 锁的是count对象，count++后是重新建一个Integer类型去赋值，锁的不是同一个对象无意义
