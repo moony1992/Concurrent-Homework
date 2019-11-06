@@ -1,6 +1,6 @@
 
 多线程的原理分析(1)
-
+====
 
 ```java
     public class SynchronizedDemo implements Runnable{
@@ -71,3 +71,23 @@ public class SynchronizedDemo  {
 
 2 数据随机小于1000
 锁的是count对象，count++后是重新建一个Integer类型去赋值，锁的不是同一个对象无意义
+
+多线程的原理分析(2)
+====
+
+请列出Happens-before的几种规则
+----
+volatile 变量规则
+传递性规则
+start 规则
+join 规则
+监视器锁的规则
+volatile 能使得一个非原子操作变成原子操作吗？为什么？
+----
+不能，volatile只能解决可见性及顺序一致性问题；
+哪些场景适合使用Volatile
+----
+多线程间需要对共享变量具有可见性时。
+如果对一个数组修饰volatile，是否能够保证数组元素的修改对其他线程的可见？为什么？
+----
+不能，数组是对成员变量或对象一个地址引用，volatile可保证对于对象数组的地址具有可见性，但是数组或对象内部的成员变量不具有可见性。
