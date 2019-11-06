@@ -117,7 +117,7 @@ ConcurrentHashMap1.8中的数据结构是基于数组加链表进行数据存储
 2.ConcurrentHashMap通过get方法获取数据的时候，是否需要通过加锁来保证数据的可见性？为什么？
 ----
 
-不需要，读的时候不存在线程安全，集合只需要保证写对读保证可见即可。即每个put方法happen-before所有get()方法
+不需要。因为get方法内通过tabAt获取value值，内部是getObjectVolatile。对于volatile关键字，写操作一定happens-before读操作。因此其他线程对value的修改，都能被get获取到最新的值，被get读取可见。
 
 3.ConcurrentHashMap1.7和ConcurrentHashMap1.8有哪些区别？
 ----
