@@ -1,7 +1,9 @@
 
 多线程的原理分析(1)
 
-public class SynchronizedDemo implements Runnable{
+
+```java
+    public class SynchronizedDemo implements Runnable{
     int x = 100;
 
     public synchronized void m1() {
@@ -34,6 +36,7 @@ public class SynchronizedDemo implements Runnable{
         m1();
     }
 }
+```
 1
 x=1000 Main x=2000
 
