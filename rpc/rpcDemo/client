@@ -1,0 +1,17 @@
+public static void main(String[] args) {
+    try (Socket socket = new Socket("localhost", 8888)) {
+
+      RpcRequest request = new RpcRequest();
+      request.setArgs(new String[]{"张三"});
+      request.setClassName("paySerivce"); //
+      request.setMethodName("pay");
+
+      ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+      oos.writeObject(request);
+
+      ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+      System.out.println(ois.readObject());
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
